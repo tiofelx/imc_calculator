@@ -1,12 +1,13 @@
 'use client'
 
+import { Suspense } from 'react'
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 
-export default function LoginPage() {
+function LoginContent() {
   const [loading, setLoading] = useState(false)
   const searchParams = useSearchParams()
   const nextUrl = searchParams.get('next') || '/dashboard'
@@ -107,5 +108,13 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 to-orange-100">Loading...</div>}>
+      <LoginContent />
+    </Suspense>
   )
 }
