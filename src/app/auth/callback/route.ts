@@ -3,14 +3,16 @@ import { createClient } from '@/lib/supabase/server'
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url)
-  const code      = searchParams.get('code')
-  const returnUrl = searchParams.get('next') ?? '/dashboard'
+  const code = searchParams.get('code')
+  const raw  = searchParams.get('next') ?? '/dashboard'
+  // Prevent open redirect: only allow same-origin local paths
+  const returnUrl = raw.startsWith('/') && !raw.startsWith('//') && !raw.startsWith('/\\') ? raw : '/dashboard'
 
   if (code) {
     const supabase = await createClient()
     const { error } = await supabase.auth.exchangeCodeForSession(code)
     if (!error) {
-      return NextResponse.redirect(`${origin}${returnUrl}`)
+      return NextResponse.redirect(new URL(returnUrl, origin))
     }
   }
 
