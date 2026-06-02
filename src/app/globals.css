@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -48,35 +49,51 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+@theme {
+  --color-primary:        #FF6B35;
+  --color-primary-light:  #FF8E53;
+  --color-secondary:      #F7C59F;
+  --color-accent:         #2ECC71;
+  --color-warning:        #F39C12;
+  --color-danger:         #E74C3C;
+  --color-dark:           #1A1A2E;
+  --color-surface:        #FFFFFF;
+  --color-background:     #F8F9FA;
+  --color-text-primary:   #1A1A2E;
+  --color-text-secondary: #6B7280;
+  --font-sans: 'Inter', sans-serif;
+  --max-width-content: 800px;
+}
+
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --background: #F8F9FA;
+  --foreground: #1A1A2E;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
+  --primary: #FF6B35;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F7C59F;
+  --secondary-foreground: #1A1A2E;
   --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
+  --muted-foreground: #6B7280;
+  --accent: #2ECC71;
+  --accent-foreground: #FFFFFF;
+  --destructive: #E74C3C;
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  --ring: #FF6B35;
+  --chart-1: #FF6B35;
+  --chart-2: #2ECC71;
+  --chart-3: #F39C12;
+  --chart-4: #E74C3C;
+  --chart-5: #1A1A2E;
   --radius: 0.625rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-primary: #FF6B35;
+  --sidebar-primary-foreground: #FFFFFF;
   --sidebar-accent: oklch(0.97 0 0);
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
@@ -123,8 +140,13 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
   }
   html {
     @apply font-sans;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.2;
   }
 }
