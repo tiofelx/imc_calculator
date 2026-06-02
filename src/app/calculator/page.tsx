@@ -1,5 +1,7 @@
 'use client'
 
+export const dynamic = 'force-dynamic'
+
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -21,8 +23,7 @@ const SLIDE = {
 }
 
 export default function CalculatorPage() {
-  const router   = useRouter()
-  const supabase = createClient()
+  const router = useRouter()
 
   const [state, setState] = useState<CalculatorState>({
     step: 1, goal: null, weightKg: null, heightCm: null,
@@ -53,6 +54,7 @@ export default function CalculatorPage() {
   async function handleSave() {
     if (!state.goal || !state.bmiValue || !state.bmiCategory || !dietPlan) return
 
+    const supabase = createClient()
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) { router.push('/login'); return }
 

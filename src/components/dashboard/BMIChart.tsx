@@ -3,24 +3,10 @@
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid,
   Tooltip, ReferenceLine, ResponsiveContainer,
-  type TooltipProps,
 } from 'recharts'
-import { getBMILabel, getBMICategory } from '@/lib/bmi'
 import type { BMIRecord } from '@/types'
 
 interface Props { records: BMIRecord[] }
-
-function CustomTooltip({ active, payload, label }: TooltipProps<number, string>) {
-  if (!active || !payload?.length) return null
-  const bmi = payload[0].value as number
-  return (
-    <div className="bg-white border border-gray-200 rounded-xl p-3 shadow-md text-sm">
-      <p className="font-semibold text-[#1A1A2E]">{label}</p>
-      <p className="text-[#FF6B35] font-bold">IMC: {bmi.toFixed(1)}</p>
-      <p className="text-[#6B7280]">{getBMILabel(getBMICategory(bmi))}</p>
-    </div>
-  )
-}
 
 export default function BMIChart({ records }: Props) {
   const data = [...records]
@@ -44,7 +30,7 @@ export default function BMIChart({ records }: Props) {
         <CartesianGrid strokeDasharray="3 3" stroke="#F3F4F6" />
         <XAxis dataKey="date" tick={{ fontSize: 11, fill: '#6B7280' }} />
         <YAxis domain={[10, 45]} tick={{ fontSize: 11, fill: '#6B7280' }} width={32} />
-        <Tooltip content={<CustomTooltip />} />
+        <Tooltip />
         <ReferenceLine y={18.5} stroke="#2ECC71" strokeDasharray="4 4" strokeWidth={1} />
         <ReferenceLine y={25}   stroke="#F39C12" strokeDasharray="4 4" strokeWidth={1} />
         <Line

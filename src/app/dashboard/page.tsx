@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { Plus, LogOut } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import BMIChart    from '@/components/dashboard/BMIChart'
+import BMIChart from '@/components/dashboard/BMIChart'
 import HistoryList from '@/components/dashboard/HistoryList'
 import { createClient } from '@/lib/supabase/server'
 import type { BMIRecord } from '@/types'
@@ -58,11 +58,12 @@ export default async function DashboardPage() {
           </div>
         )}
 
-        <Button asChild size="lg" className="w-full h-14 rounded-xl bg-[#FF6B35] hover:bg-[#FF8E53] font-bold text-base">
-          <Link href="/calculator">
-            <Plus className="mr-2 h-5 w-5" /> Novo cálculo de IMC
-          </Link>
-        </Button>
+        <Link
+          href="/calculator"
+          className="w-full h-14 rounded-xl bg-[#FF6B35] hover:bg-[#FF8E53] font-bold text-base text-white inline-flex items-center justify-center transition-colors"
+        >
+          <Plus className="mr-2 h-5 w-5" /> Novo cálculo de IMC
+        </Link>
 
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
           <h2 className="font-bold text-[#1A1A2E] text-lg mb-4">Evolução do IMC</h2>

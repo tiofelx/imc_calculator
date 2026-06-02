@@ -74,7 +74,7 @@ export default async function ResultDetailPage({ params }: Props) {
                       <p className="text-xs font-bold text-[#FF6B35] uppercase tracking-wide mb-1">
                         {MEAL_LABELS[key]}
                       </p>
-                      <p className="text-sm text-[#1A1A2E]">{(diet.meals as Record<string, string>)[key]}</p>
+                      <p className="text-sm text-[#1A1A2E]">{(diet.meals as unknown as Record<string, string>)[key]}</p>
                     </div>
                   ))}
                 </div>
