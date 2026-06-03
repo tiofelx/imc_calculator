@@ -1,0 +1,52 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(mkdir -p \"c:/Users/cruxSacra/Documents/imc_calculator/docs/superpowers/specs\")",
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --no-git)",
+      "Bash(dir /a)",
+      "Bash(mkdir -p \"c:\\\\Users\\\\cruxSacra\\\\Documents\\\\imc_calculator_temp_backup\")",
+      "Bash(cp -r \"c:\\\\Users\\\\cruxSacra\\\\Documents\\\\imc_calculator\\\\.remember\" \"c:\\\\Users\\\\cruxSacra\\\\Documents\\\\imc_calculator_temp_backup\\\\\" && cp -r \"c:\\\\Users\\\\cruxSacra\\\\Documents\\\\imc_calculator\\\\.claude\" \"c:\\\\Users\\\\cruxSacra\\\\Documents\\\\imc_calculator_temp_backup\\\\\")",
+      "Bash(cp -r \"c:\\\\Users\\\\cruxSacra\\\\Documents\\\\imc_calculator\\\\docs\" \"c:\\\\Users\\\\cruxSacra\\\\Documents\\\\imc_calculator_temp_backup\\\\\" && rm -rf \"c:\\\\Users\\\\cruxSacra\\\\Documents\\\\imc_calculator\\\\.remember\" \"c:\\\\Users\\\\cruxSacra\\\\Documents\\\\imc_calculator\\\\.claude\" \"c:\\\\Users\\\\cruxSacra\\\\Documents\\\\imc_calculator\\\\docs\" && ls \"c:\\\\Users\\\\cruxSacra\\\\Documents\\\\imc_calculator\")",
+      "Bash(mkdir -p /c/Users/cruxSacra/Documents/imc_calculator_temp_backup)",
+      "Bash(cp -r /c/Users/cruxSacra/Documents/imc_calculator/.remember /c/Users/cruxSacra/Documents/imc_calculator_temp_backup/)",
+      "Bash(cp -r /c/Users/cruxSacra/Documents/imc_calculator/.claude /c/Users/cruxSacra/Documents/imc_calculator_temp_backup/)",
+      "Bash(cp -r /c/Users/cruxSacra/Documents/imc_calculator/docs /c/Users/cruxSacra/Documents/imc_calculator_temp_backup/)",
+      "Bash(rm -rf /c/Users/cruxSacra/Documents/imc_calculator/.remember /c/Users/cruxSacra/Documents/imc_calculator/.claude /c/Users/cruxSacra/Documents/imc_calculator/docs)",
+      "Bash(mkdir -p /c/Users/cruxSacra/Documents/imc_scaffold_temp)",
+      "Read(//c/Users/cruxSacra/Documents/**)",
+      "Bash(rsync -av --exclude=node_modules /c/Users/cruxSacra/Documents/imc_scaffold_temp/ /c/Users/cruxSacra/Documents/imc_calculator/)",
+      "Bash(npm install *)",
+      "Bash(npx shadcn@latest init --defaults)",
+      "Bash(npx shadcn@latest add card input label badge progress sonner --yes)",
+      "Bash(cp -r /c/Users/cruxSacra/Documents/imc_calculator_temp_backup/.claude /c/Users/cruxSacra/Documents/imc_calculator/)",
+      "Bash(cp -r /c/Users/cruxSacra/Documents/imc_calculator_temp_backup/docs /c/Users/cruxSacra/Documents/imc_calculator/)",
+      "Bash(npm run *)",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git config *)",
+      "Bash(rm -rf /c/Users/cruxSacra/Documents/imc_scaffold_temp /c/Users/cruxSacra/Documents/imc_calculator_temp_backup && echo \"cleaned up\")",
+      "Bash(npx jest *)",
+      "Bash(npx tailwindcss *)",
+      "Bash(git commit *)",
+      "Bash(npm test *)",
+      "Bash(dir \"C:\\\\Users\\\\cruxSacra\\\\Documents\\\\imc_calculator\\\\src\" /s /b)",
+      "Bash(find /mnt/c/Users/cruxSacra/Documents/imc_calculator/src -type f | sort)",
+      "Read(//mnt/c/Users/cruxSacra/Documents/imc_calculator/**)",
+      "Bash(node -e \"const r = require\\('recharts'\\); const keys = Object.keys\\(r\\).filter\\(k => k.includes\\('Tooltip'\\)\\); console.log\\(keys\\)\")",
+      "Bash(npx tsc *)",
+      "Bash(Remove-Item \"c:\\\\Users\\\\cruxSacra\\\\Documents\\\\imc_calculator\\\\src\\\\middleware.ts\")",
+      "Bash(gh api *)",
+      "Bash(node -e \"const p=require\\('./package.json'\\); console.log\\(Object.keys\\({...p.dependencies,...p.devDependencies}\\).filter\\(k=>['lucide-react','framer-motion','@radix-ui/react-icons'].includes\\(k\\)\\).join\\('\\\\n'\\)\\)\")",
+      "Bash(node -e \"const p=require\\('./package.json'\\); console.log\\('next:', p.dependencies.next\\)\")",
+      "Bash(Remove-Item \"src/middleware.ts\")",
+      "PowerShell(Remove-Item \"src\\\\middleware.ts\" -Confirm:$false)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\cruxSacra\\Documents\\imc_calculator\\docs\\superpowers",
+      "C:\\Users\\cruxSacra\\Documents\\imc_scaffold_temp"
+    ]
+  }
+}

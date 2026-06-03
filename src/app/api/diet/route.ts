@@ -101,9 +101,9 @@ Por favor, calcule estimativas calóricas adequadas e elabore as refeições Caf
           { role: 'user', content: userPrompt },
         ],
         temperature: 0.2,
+        max_tokens: 1024,
       }),
-      // Adicionando um timeout razoável para a API
-      signal: AbortSignal.timeout(10000),
+      signal: AbortSignal.timeout(60000),
     })
 
     if (!response.ok) {
