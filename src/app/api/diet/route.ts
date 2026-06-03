@@ -55,7 +55,7 @@ export async function POST(request: Request) {
   const goalStr = GOAL_TRANSLATIONS[goal] || goal
   const categoryStr = CATEGORY_TRANSLATIONS[bmiCategory] || bmiCategory
 
-  const systemPrompt = `Você é um nutricionista esportivo profissional e experiente. Sua tarefa é elaborar um plano de dieta personalizado e não genérico com base no perfil físico e objetivo do usuário.
+  const systemPrompt = `Você é um nutricionista esportivo profissional e experiente. Sua tarefa é elaborar um plano de dieta personalizado e não genérico com base no perfil físico e objetivo do usuário. Varie os alimentos, combinações e porções a cada plano gerado — nunca repita as mesmas refeições. Use alimentos regionais brasileiros, diversifique entre proteínas, carboidratos e vegetais, e ajuste as quantidades com base no peso e altura exatos fornecidos.
 Retorne SEMPRE e EXCLUSIVAMENTE um objeto JSON válido, sem nenhum tipo de texto adicional antes ou depois do JSON. Não inclua blocos de código com crases (como \`\`\`json) no início ou no fim, apenas o JSON puro.
 
 O JSON deve seguir exatamente a seguinte estrutura:
@@ -75,7 +75,7 @@ O JSON deve seguir exatamente a seguinte estrutura:
 }
 
 REGRAS IMPORTANTES PARA O CONTEÚDO:
-1. As refeições (meals.breakfast, meals.lunch, meals.snack, meals.dinner) DEVEM conter os alimentos individuais separados pelo caractere " + " (espaço, sinal de mais, espaço) para que o sistema possa renderizar os itens em formato de lista. Exemplo: "Ovos mexidos (2) + Pão integral (2 fatias) + Café sem açúcar".
+1. As refeições (meals.breakfast, meals.lunch, meals.snack, meals.dinner) DEVEM conter os alimentos individuais separados pelo caractere " + " (espaço, sinal de mais, espaço). SEMPRE coloque a quantidade no INÍCIO de cada item, seguida do alimento, sem maiúsculas desnecessárias. Exemplos corretos: "3 ovos inteiros + 1/2 xícara de espinafre + 1 fatia de pão integral". Exemplo incorreto: "Ovos inteiros (3)" ou "Omelete com 3 ovos".
 2. O array "tips" DEVE conter exatamente 4 dicas personalizadas. Cada dica DEVE seguir rigorosamente o formato "emoji|Título Curto|Explicação simples e direta". Exemplo: "🥑|Coma gorduras boas|Adicione abacate, azeite de oliva e castanhas na sua rotina de forma moderada."
 3. As refeições e dicas devem ser altamente customizadas para o peso, altura, IMC e objetivo do usuário, fornecendo porções realistas baseadas nas informações do usuário.`
 
@@ -100,10 +100,10 @@ Por favor, calcule estimativas calóricas adequadas e elabore as refeições Caf
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userPrompt },
         ],
-        temperature: 0.2,
+        temperature: 0.75,
+        max_tokens: 1024,
       }),
-      // Adicionando um timeout razoável para a API
-      signal: AbortSignal.timeout(10000),
+      signal: AbortSignal.timeout(60000),
     })
 
     if (!response.ok) {
