@@ -17,21 +17,26 @@ import { getBMILabel, getBMIColor } from '@/lib/bmi'
  *  Ex: "2 Ovos" → { name: "Ovos", qty: "2" }
  */
 function parseFoodItem(raw: string): { name: string; qty: string | null } {
-  const text = raw.trim().charAt(0).toUpperCase() + raw.trim().slice(1)
+  const text = raw.trim()
+  const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
 
-  // quantidade no final: "200 g", "180 g", "30 g", etc.
+  // quantidade no final com unidade: "200 g", "30 ml", etc.
   const trailingQty = text.match(/^(.+?)\s+(\d+(?:[.,]\d+)?\s*(?:g|ml|kg|l|col\.\s*sopa|col\.\s*chá|dose|porção))\s*$/i)
-  if (trailingQty) return { name: trailingQty[1].trim(), qty: trailingQty[2].trim() }
+  if (trailingQty) return { name: cap(trailingQty[1].trim()), qty: trailingQty[2].trim() }
 
   // quantidade no final entre parênteses: "(3)", "(2)", "(1/2)"
   const trailingParen = text.match(/^(.+?)\s+(\(\d+(?:\/\d+)?\))\s*$/)
-  if (trailingParen) return { name: trailingParen[1].trim(), qty: trailingParen[2].trim() }
+  if (trailingParen) return { name: cap(trailingParen[1].trim()), qty: trailingParen[2].trim() }
 
-  // quantidade no início: "2 Ovos", "1/2 Abacate"
+  // quantidade no início com unidade colada: "150g de frango", "200ml de leite"
+  const leadingWithUnit = text.match(/^(\d+(?:[.,]\d+)?\s*(?:g|ml|kg|l))\s+(.+)$/i)
+  if (leadingWithUnit) return { name: cap(leadingWithUnit[2].trim()), qty: leadingWithUnit[1].trim() }
+
+  // quantidade no início: "2 ovos", "1/2 abacate", "3 colheres"
   const leadingQty = text.match(/^(\d+(?:\/\d+)?)\s+(.+)$/)
-  if (leadingQty) return { name: leadingQty[2].trim(), qty: leadingQty[1].trim() }
+  if (leadingQty) return { name: cap(leadingQty[2].trim()), qty: leadingQty[1].trim() }
 
-  return { name: text, qty: null }
+  return { name: cap(text), qty: null }
 }
 
 function MealItem({ raw }: { raw: string }) {
