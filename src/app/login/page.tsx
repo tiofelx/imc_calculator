@@ -40,10 +40,10 @@ function LoginContent() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-[#FF6B35] to-[#FF8E53] flex items-center justify-center px-4">
+    <main className="min-h-screen bg-gradient-to-br from-indigo-600 to-indigo-500 flex items-center justify-center px-4">
       <div className="bg-white rounded-3xl shadow-2xl p-10 w-full max-w-md text-center">
-        <div className="w-16 h-16 rounded-2xl bg-[#FF6B35]/10 flex items-center justify-center mx-auto mb-6">
-          <Activity className="h-8 w-8 text-[#FF6B35]" />
+        <div className="w-16 h-16 rounded-2xl bg-indigo-50 flex items-center justify-center mx-auto mb-6">
+          <Activity className="h-8 w-8 text-indigo-600" />
         </div>
 
         <h1 className="text-3xl font-extrabold text-[#1A1A2E] mb-2">IMC Autocuidado</h1>
@@ -55,7 +55,7 @@ function LoginContent() {
           onClick={handleGoogleLogin}
           disabled={loading}
           size="lg"
-          className="w-full h-14 text-base font-bold bg-[#FF6B35] hover:bg-[#FF8E53] rounded-xl gap-3"
+          className="w-full h-14 text-base font-bold bg-indigo-600 hover:bg-indigo-700 rounded-xl gap-3"
         >
           {loading ? (
             <span className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full" />
@@ -81,7 +81,7 @@ function LoginContent() {
 export default function LoginPage() {
   return (
     <Suspense fallback={
-      <main className="min-h-screen bg-gradient-to-br from-[#FF6B35] to-[#FF8E53] flex items-center justify-center" />
+      <main className="min-h-screen bg-gradient-to-br from-indigo-600 to-indigo-500 flex items-center justify-center" />
     }>
       <LoginContent />
     </Suspense>

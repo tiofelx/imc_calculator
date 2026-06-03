@@ -15,7 +15,7 @@ export default function HistoryList({ records }: Props) {
     return (
       <p className="text-[#6B7280] text-sm py-8 text-center">
         Nenhum cálculo salvo ainda.{' '}
-        <Link href="/calculator" className="text-[#FF6B35] font-semibold hover:underline">
+        <Link href="/calculator" className="text-indigo-600 font-semibold hover:underline">
           Calcular agora →
         </Link>
       </p>

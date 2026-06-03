@@ -13,7 +13,7 @@ import ResultStep  from '@/components/calculator/ResultStep'
 import { createClient } from '@/lib/supabase/client'
 import { calculateBMI } from '@/lib/bmi'
 import { getDietPlan }   from '@/lib/diet'
-import type { CalculatorState, DietPlan } from '@/types'
+import type { CalculatorState, DietPlan, BMICategory } from '@/types'
 
 const SLIDE = {
   initial:    { opacity: 0, x: 40 },
@@ -49,25 +49,21 @@ export default function CalculatorPage() {
     }))
     setDietPlan(plan)
     setCalculating(false)
+    autoSave(weightKg, heightCm, bmi.value, bmi.category, state.goal, plan)
   }
 
-  async function handleSave() {
-    if (!state.goal || !state.bmiValue || !state.bmiCategory || !dietPlan) return
-
+  async function autoSave(
+    weightKg: number, heightCm: number,
+    bmiValue: number, bmiCategory: BMICategory,
+    goal: NonNullable<CalculatorState['goal']>, plan: DietPlan,
+  ) {
     const supabase = createClient()
     const { data: { user } } = await supabase.auth.getUser()
-    if (!user) { router.push('/login'); return }
+    if (!user) return
 
     const { data: record, error: recErr } = await supabase
       .from('bmi_records')
-      .insert({
-        user_id:      user.id,
-        weight_kg:    state.weightKg,
-        height_cm:    state.heightCm,
-        bmi_value:    state.bmiValue,
-        bmi_category: state.bmiCategory,
-        goal:         state.goal,
-      })
+      .insert({ user_id: user.id, weight_kg: weightKg, height_cm: heightCm, bmi_value: bmiValue, bmi_category: bmiCategory, goal })
       .select('id')
       .single()
 
@@ -78,11 +74,7 @@ export default function CalculatorPage() {
 
     const { error: dietErr } = await supabase
       .from('diet_plans')
-      .insert({
-        bmi_record_id: record.id,
-        meals:         dietPlan.meals,
-        tips:          dietPlan.tips,
-      })
+      .insert({ bmi_record_id: record.id, meals: plan.meals, tips: plan.tips })
 
     if (dietErr) {
       toast.error('Cálculo salvo, mas houve erro ao salvar o plano de dieta.')
@@ -90,6 +82,11 @@ export default function CalculatorPage() {
       toast.success('Resultado salvo no seu histórico!')
       setState(prev => ({ ...prev, savedId: record.id }))
     }
+  }
+
+  async function handleSave() {
+    if (!state.goal || !state.bmiValue || !state.bmiCategory || !dietPlan) return
+    await autoSave(state.weightKg!, state.heightCm!, state.bmiValue, state.bmiCategory, state.goal, dietPlan)
   }
 
   return (

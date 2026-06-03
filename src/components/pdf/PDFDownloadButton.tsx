@@ -51,7 +51,7 @@ export default function PDFDownloadButton({ bmiValue, bmiCategory, goal, dietPla
       onClick={handleDownload}
       disabled={generating}
       size="lg"
-      className="flex-1 h-14 rounded-xl bg-[#FF6B35] hover:bg-[#FF8E53] font-bold text-white"
+      className="flex-1 h-14 rounded-xl bg-indigo-600 hover:bg-indigo-700 font-bold text-white"
     >
       {generating ? (
         <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Gerando PDF…</>

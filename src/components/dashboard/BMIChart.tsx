@@ -35,8 +35,8 @@ export default function BMIChart({ records }: Props) {
         <ReferenceLine y={25}   stroke="#F39C12" strokeDasharray="4 4" strokeWidth={1} />
         <Line
           type="monotone" dataKey="value"
-          stroke="#FF6B35" strokeWidth={3}
-          dot={{ fill: '#FF6B35', r: 5 }}
+          stroke="#4F46E5" strokeWidth={3}
+          dot={{ fill: '#4F46E5', r: 5 }}
           activeDot={{ r: 7 }}
         />
       </LineChart>

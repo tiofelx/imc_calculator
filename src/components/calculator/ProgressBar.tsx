@@ -19,7 +19,7 @@ export default function ProgressBar({ currentStep }: ProgressBarProps) {
               key={label}
               className={[
                 'text-xs font-semibold',
-                active ? 'text-[#FF6B35]' : done ? 'text-[#2ECC71]' : 'text-[#6B7280]',
+                active ? 'text-indigo-600' : done ? 'text-[#2ECC71]' : 'text-[#6B7280]',
               ].join(' ')}
             >
               {label}
@@ -35,7 +35,7 @@ export default function ProgressBar({ currentStep }: ProgressBarProps) {
         aria-valuemax={100}
       >
         <div
-          className="h-2 rounded-full bg-[#FF6B35] transition-all duration-300 ease-in-out"
+          className="h-2 rounded-full bg-indigo-600 transition-all duration-300 ease-in-out"
           style={{ width: `${pct}%` }}
         />
       </div>

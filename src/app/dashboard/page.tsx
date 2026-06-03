@@ -42,14 +42,14 @@ export default async function DashboardPage() {
             </div>
           </div>
           <form action="/auth/signout" method="post">
-            <Button variant="ghost" size="sm" className="text-[#6B7280] gap-2">
+            <Button type="submit" variant="ghost" size="sm" className="text-[#6B7280] gap-2">
               <LogOut className="h-4 w-4" /> Sair
             </Button>
           </form>
         </div>
 
         {latest && (
-          <div className="bg-gradient-to-r from-[#FF6B35] to-[#FF8E53] rounded-2xl p-6 text-white">
+          <div className="bg-gradient-to-r from-indigo-600 to-indigo-500 rounded-2xl p-6 text-white">
             <p className="text-sm opacity-80 mb-1">Último IMC calculado</p>
             <p className="text-5xl font-extrabold">{latest.bmi_value.toFixed(1)}</p>
             <p className="text-sm opacity-90 mt-1">
@@ -60,7 +60,7 @@ export default async function DashboardPage() {
 
         <Link
           href="/calculator"
-          className="w-full h-14 rounded-xl bg-[#FF6B35] hover:bg-[#FF8E53] font-bold text-base text-white inline-flex items-center justify-center transition-colors"
+          className="w-full h-14 rounded-xl bg-indigo-600 hover:bg-indigo-700 font-bold text-base text-white inline-flex items-center justify-center transition-colors"
         >
           <Plus className="mr-2 h-5 w-5" /> Novo cálculo de IMC
         </Link>

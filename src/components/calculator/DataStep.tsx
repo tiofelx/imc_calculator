@@ -91,7 +91,7 @@ export default function DataStep({ defaultWeight, defaultHeight, onSubmit, loadi
           type="submit"
           disabled={loading}
           size="lg"
-          className="w-full h-14 text-base font-bold bg-[#FF6B35] hover:bg-[#FF8E53] rounded-xl"
+          className="w-full h-14 text-base font-bold bg-indigo-600 hover:bg-indigo-700 rounded-xl"
         >
           {loading ? (
             <><Loader2 className="mr-2 h-5 w-5 animate-spin" />Calculando…</>

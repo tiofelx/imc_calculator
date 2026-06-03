@@ -50,7 +50,7 @@ export default function GoalStep({ selected, onSelect }: GoalStepProps) {
               transition={{ duration: 0.15, ease: 'easeOut' }}
               className={[
                 'text-left rounded-2xl border-2 p-6 cursor-pointer transition-all duration-150',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF6B35] focus-visible:ring-offset-2',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2',
                 'min-h-[44px]',
                 isSelected
                   ? `${border} ${bg} shadow-md`
