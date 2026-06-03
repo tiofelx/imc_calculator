@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { ArrowLeft, BookOpen, Lightbulb, Loader2, Save } from 'lucide-react'
+import TipIcon from '@/components/ui/TipIcon'
 import { Button } from '@/components/ui/button'
 import BMIGauge from './BMIGauge'
 import type { Goal, BMICategory, DietPlan } from '@/types'
@@ -85,11 +86,8 @@ function TipCard({ tip }: { tip: string }) {
 
   return (
     <li className="flex gap-3 items-start bg-white border border-amber-100 rounded-xl p-4 shadow-sm">
-      <span
-        className="shrink-0 w-9 h-9 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-lg"
-        aria-hidden
-      >
-        {icon}
+      <span className="shrink-0 w-9 h-9 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center">
+        <TipIcon emoji={icon} className="w-5 h-5" />
       </span>
       <span className="flex flex-col gap-1 min-w-0">
         <span className="text-sm font-medium text-[#1A1A2E] leading-snug">{title}</span>
