@@ -55,7 +55,7 @@ export async function POST(request: Request) {
   const goalStr = GOAL_TRANSLATIONS[goal] || goal
   const categoryStr = CATEGORY_TRANSLATIONS[bmiCategory] || bmiCategory
 
-  const systemPrompt = `Você é um nutricionista esportivo profissional e experiente. Sua tarefa é elaborar um plano de dieta personalizado e não genérico com base no perfil físico e objetivo do usuário.
+  const systemPrompt = `Você é um nutricionista esportivo profissional e experiente. Sua tarefa é elaborar um plano de dieta personalizado e não genérico com base no perfil físico e objetivo do usuário. Varie os alimentos, combinações e porções a cada plano gerado — nunca repita as mesmas refeições. Use alimentos regionais brasileiros, diversifique entre proteínas, carboidratos e vegetais, e ajuste as quantidades com base no peso e altura exatos fornecidos.
 Retorne SEMPRE e EXCLUSIVAMENTE um objeto JSON válido, sem nenhum tipo de texto adicional antes ou depois do JSON. Não inclua blocos de código com crases (como \`\`\`json) no início ou no fim, apenas o JSON puro.
 
 O JSON deve seguir exatamente a seguinte estrutura:
@@ -100,7 +100,7 @@ Por favor, calcule estimativas calóricas adequadas e elabore as refeições Caf
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userPrompt },
         ],
-        temperature: 0.2,
+        temperature: 0.75,
         max_tokens: 1024,
       }),
       signal: AbortSignal.timeout(60000),
