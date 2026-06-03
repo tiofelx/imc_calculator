@@ -45,16 +45,16 @@ function parseFoodItem(raw: string): { name: string; qty: string | null } {
 function MealItem({ raw }: { raw: string }) {
   const { name, qty } = parseFoodItem(raw)
   return (
-    <li className="flex items-center justify-between gap-2 py-1 border-b border-gray-100 last:border-0">
-      <span className="flex items-center gap-1.5 text-sm text-[#1A1A2E]">
-        <span className="text-indigo-400 shrink-0">•</span>
-        {name}
-      </span>
+    <li className="flex items-center gap-2 py-1 border-b border-gray-100 last:border-0">
       {qty && (
         <span className="shrink-0 text-xs font-semibold bg-indigo-100 text-indigo-700 rounded-full px-2 py-0.5">
           {qty}
         </span>
       )}
+      <span className="flex items-center gap-1.5 text-sm text-[#1A1A2E]">
+        <span className="text-indigo-400 shrink-0">•</span>
+        {name}
+      </span>
     </li>
   )
 }
