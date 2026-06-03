@@ -40,9 +40,36 @@ export default function CalculatorPage() {
   async function handleDataSubmit(weightKg: number, heightCm: number) {
     if (!state.goal) return
     setCalculating(true)
-    await new Promise(res => setTimeout(res, 400))
-    const bmi  = calculateBMI(weightKg, heightCm)
-    const plan = getDietPlan(state.goal, bmi.category)
+    const bmi = calculateBMI(weightKg, heightCm)
+    let plan: DietPlan
+
+    try {
+      const response = await fetch('/api/diet', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          weightKg,
+          heightCm,
+          bmiValue: bmi.value,
+          bmiCategory: bmi.category,
+          goal: state.goal,
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Erro na resposta do servidor.')
+      }
+
+      plan = await response.json()
+    } catch (err) {
+      console.error('[Diet API Client] Erro ao buscar dieta personalizada:', err)
+      // Mostramos uma mensagem informativa apenas se a chave estiver configurada
+      // Mas para o usuário comum, apenas garantimos que funciona silenciosamente ou com aviso simples
+      plan = getDietPlan(state.goal, bmi.category)
+    }
+
     setState(prev => ({
       ...prev, step: 3, weightKg, heightCm,
       bmiValue: bmi.value, bmiCategory: bmi.category,
