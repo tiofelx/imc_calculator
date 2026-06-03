@@ -18,7 +18,10 @@ import { getBMILabel, getBMIColor } from '@/lib/bmi'
  */
 function parseFoodItem(raw: string): { name: string; qty: string | null } {
   const text = raw.trim()
-  const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
+  const cap = (s: string) => {
+    const stripped = s.replace(/^(de|do|da|dos|das|com|e)\s+/i, '')
+    return stripped.charAt(0).toUpperCase() + stripped.slice(1)
+  }
 
   // quantidade no final com unidade: "200 g", "30 ml", etc.
   const trailingQty = text.match(/^(.+?)\s+(\d+(?:[.,]\d+)?\s*(?:g|ml|kg|l|col\.\s*sopa|col\.\s*chá|dose|porção))\s*$/i)
