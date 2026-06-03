@@ -12,7 +12,6 @@ import DataStep    from '@/components/calculator/DataStep'
 import ResultStep  from '@/components/calculator/ResultStep'
 import { createClient } from '@/lib/supabase/client'
 import { calculateBMI } from '@/lib/bmi'
-import { getDietPlan }   from '@/lib/diet'
 import type { CalculatorState, DietPlan, BMICategory } from '@/types'
 
 const SLIDE = {
@@ -41,7 +40,6 @@ export default function CalculatorPage() {
     if (!state.goal) return
     setCalculating(true)
     const bmi = calculateBMI(weightKg, heightCm)
-    let plan: DietPlan
 
     try {
       const response = await fetch('/api/diet', {
@@ -59,24 +57,24 @@ export default function CalculatorPage() {
       })
 
       if (!response.ok) {
-        throw new Error('Erro na resposta do servidor.')
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.error || 'Erro na resposta do servidor ao gerar a dieta.')
       }
 
-      plan = await response.json()
+      const plan: DietPlan = await response.json()
+
+      setState(prev => ({
+        ...prev, step: 3, weightKg, heightCm,
+        bmiValue: bmi.value, bmiCategory: bmi.category,
+      }))
+      setDietPlan(plan)
+      autoSave(weightKg, heightCm, bmi.value, bmi.category, state.goal, plan)
     } catch (err) {
       console.error('[Diet API Client] Erro ao buscar dieta personalizada:', err)
-      // Mostramos uma mensagem informativa apenas se a chave estiver configurada
-      // Mas para o usuário comum, apenas garantimos que funciona silenciosamente ou com aviso simples
-      plan = getDietPlan(state.goal, bmi.category)
+      toast.error(err instanceof Error ? err.message : 'Não foi possível obter sua dieta personalizada. Verifique sua conexão e chaves de API.')
+    } finally {
+      setCalculating(false)
     }
-
-    setState(prev => ({
-      ...prev, step: 3, weightKg, heightCm,
-      bmiValue: bmi.value, bmiCategory: bmi.category,
-    }))
-    setDietPlan(plan)
-    setCalculating(false)
-    autoSave(weightKg, heightCm, bmi.value, bmi.category, state.goal, plan)
   }
 
   async function autoSave(

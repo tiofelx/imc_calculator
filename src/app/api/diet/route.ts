@@ -1,5 +1,4 @@
 import { NextRequest } from 'next/server'
-import { getDietPlan } from '@/lib/diet'
 import type { Goal, BMICategory, DietPlan } from '@/types'
 
 const GOAL_TRANSLATIONS: Record<Goal, string> = {
@@ -42,15 +41,15 @@ export async function POST(request: Request) {
 
   const { weightKg, heightCm, bmiValue, bmiCategory, goal } = body
 
-  // Obter fallback caso falte a API Key ou dê erro
-  const fallbackPlan = getDietPlan(goal, bmiCategory)
-
   const apiKey = process.env.NVIDIA_API_KEY
   const modelName = process.env.NVIDIA_MODEL || 'nvidia/llama-3.3-nemotron-super-49b-v1.5'
 
   if (!apiKey) {
-    console.warn('[NVIDIA API] NVIDIA_API_KEY não configurada. Usando dieta estática de fallback.')
-    return Response.json(fallbackPlan)
+    console.error('[NVIDIA API] NVIDIA_API_KEY não configurada.')
+    return Response.json(
+      { error: 'A chave de API da NVIDIA não está configurada no servidor. Não foi possível gerar a dieta personalizada.' },
+      { status: 500 }
+    )
   }
 
   const goalStr = GOAL_TRANSLATIONS[goal] || goal
@@ -143,7 +142,10 @@ Por favor, calcule estimativas calóricas adequadas e elabore as refeições Caf
     return Response.json(parsed)
   } catch (error) {
     console.error('[NVIDIA API Error] Falha na geração dinâmica da dieta:', error)
-    // Retorna fallback em caso de qualquer falha
-    return Response.json(fallbackPlan)
+    const message = error instanceof Error ? error.message : 'Erro na comunicação com a API de IA.'
+    return Response.json(
+      { error: `Erro ao gerar a dieta personalizada: ${message}` },
+      { status: 500 }
+    )
   }
 }
